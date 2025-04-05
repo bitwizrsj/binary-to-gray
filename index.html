@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gray Code Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f0f0f0;
+    }
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    input, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    h2 {
+      margin-top: 1.5rem;
+    }
+    .result {
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Binary & Gray Code Converter</h1>
+
+    <h2>Binary to Gray Code</h2>
+    <input type="text" id="binaryInput" placeholder="Enter binary code" />
+    <button onclick="convertToGray()">Convert to Gray</button>
+    <div class="result" id="grayOutput"></div>
+
+    <h2>Gray Code to Binary</h2>
+    <input type="text" id="grayInput" placeholder="Enter gray code" />
+    <button onclick="convertToBinary()">Convert to Binary</button>
+    <div class="result" id="binaryOutput"></div>
+  </div>
+
+  <script>
+    function convertToGray() {
+      const binary = document.getElementById('binaryInput').value.trim();
+      if (!/^[01]+$/.test(binary)) {
+        document.getElementById('grayOutput').textContent = 'Invalid binary input';
+        return;
+      }
+      let gray = binary[0];
+      for (let i = 1; i < binary.length; i++) {
+        gray += binary[i - 1] ^ binary[i];
+      }
+      document.getElementById('grayOutput').textContent = `Gray Code: ${gray}`;
+    }
+
+    function convertToBinary() {
+      const gray = document.getElementById('grayInput').value.trim();
+      if (!/^[01]+$/.test(gray)) {
+        document.getElementById('binaryOutput').textContent = 'Invalid gray code input';
+        return;
+      }
+      let binary = gray[0];
+      for (let i = 1; i < gray.length; i++) {
+        binary += binary[i - 1] ^ gray[i];
+      }
+      document.getElementById('binaryOutput').textContent = `Binary Code: ${binary}`;
+    }
+  </script>
+</body>
+</html>
